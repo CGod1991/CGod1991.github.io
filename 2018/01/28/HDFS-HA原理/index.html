@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="HDFS HA," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="CGod&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="简单介绍一些 HDFS 集群的 HA 原理及主备切换的大体流程。 概述在 Hadoop 2.x 版本中，Hadoop 实现了 HDFS 的 HA 功能，从而解决了 HDFS 中 NameNode 单点问题。 在 HDFS NameNode 的高可用架构中涉及到了多个部分，主要包括：Active NameNode、Standby NameNode、ZKFailoverController、ZooKe">
+<meta name="keywords" content="HDFS HA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS HA原理">
+<meta property="og:url" content="http://yoursite.com/2018/01/28/HDFS-HA原理/index.html">
 <meta property="og:site_name" content="CGod&#39;s Blog">
+<meta property="og:description" content="简单介绍一些 HDFS 集群的 HA 原理及主备切换的大体流程。 概述在 Hadoop 2.x 版本中，Hadoop 实现了 HDFS 的 HA 功能，从而解决了 HDFS 中 NameNode 单点问题。 在 HDFS NameNode 的高可用架构中涉及到了多个部分，主要包括：Active NameNode、Standby NameNode、ZKFailoverController、ZooKe">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-28T05:10:20.055Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGod&#39;s Blog">
+<meta name="twitter:title" content="HDFS HA原理">
+<meta name="twitter:description" content="简单介绍一些 HDFS 集群的 HA 原理及主备切换的大体流程。 概述在 Hadoop 2.x 版本中，Hadoop 实现了 HDFS 的 HA 功能，从而解决了 HDFS 中 NameNode 单点问题。 在 HDFS NameNode 的高可用架构中涉及到了多个部分，主要包括：Active NameNode、Standby NameNode、ZKFailoverController、ZooKe">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/28/HDFS-HA原理/"/>
 
 
 
 
 
-  <title>CGod's Blog</title>
+  <title>HDFS HA原理 | CGod's Blog</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/28/HDFS-HA原理/" itemprop="url">HDFS HA原理</a></h1>
+          <h1 class="post-title" itemprop="name headline">HDFS HA原理</h1>
         
 
         <div class="post-meta">
@@ -298,9 +300,7 @@
       
 
       
-        
-          
-            <p>简单介绍一些 HDFS 集群的 HA 原理及主备切换的大体流程。</p>
+        <p>简单介绍一些 HDFS 集群的 HA 原理及主备切换的大体流程。</p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 Hadoop 2.x 版本中，Hadoop 实现了 HDFS 的 HA 功能，从而解决了 HDFS 中 NameNode 单点问题。</p>
 <p>在 HDFS NameNode 的高可用架构中涉及到了多个部分，主要包括：Active NameNode、Standby NameNode、ZKFailoverController、ZooKeeper集群和共享存储系统。其中，Active NameNode 和 Standby NameNode 互为主备，通过共享存储系统共享同一份元数据，由 ZooKeeper 集群负责选取主 NameNode。ZKFailoverController 负责监控 NameNode 的状态，当主 NameNode 出现故障后，进行主备切换。</p>
 <p>下面就对 HDFS 的 HA 做进一步的介绍。</p>
@@ -344,8 +344,6 @@
 <li>ZKFailoverController 在接收到 ActiveStandbyElector 的通知后调用对应 NameNode 的接口，将 NameNode 转换为 Active 或 Standby 状态。</li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -360,14 +358,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/HDFS-HA/" rel="tag"># HDFS HA</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -377,10 +381,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -388,6 +393,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -408,8 +417,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,6 +478,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共享存储系统"><span class="nav-number">2.</span> <span class="nav-text">共享存储系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NameNode-元数据"><span class="nav-number">2.1.</span> <span class="nav-text">NameNode 元数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FSImage"><span class="nav-number">2.1.1.</span> <span class="nav-text">FSImage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EditLog"><span class="nav-number">2.1.2.</span> <span class="nav-text">EditLog</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元数据共享"><span class="nav-number">2.2.</span> <span class="nav-text">元数据共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主备切换"><span class="nav-number">2.3.</span> <span class="nav-text">主备切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#QJM-的数据恢复"><span class="nav-number">2.3.1.</span> <span class="nav-text">QJM 的数据恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步"><span class="nav-number">2.3.2.</span> <span class="nav-text">数据同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主备切换实现"><span class="nav-number">3.</span> <span class="nav-text">主备切换实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZKFailoverController"><span class="nav-number">3.1.</span> <span class="nav-text">ZKFailoverController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HeathMonitor"><span class="nav-number">3.2.</span> <span class="nav-text">HeathMonitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveStandbyElector"><span class="nav-number">3.3.</span> <span class="nav-text">ActiveStandbyElector</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体过程"><span class="nav-number">4.</span> <span class="nav-text">具体过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -593,6 +627,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
